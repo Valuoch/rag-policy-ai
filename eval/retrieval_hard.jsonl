@@ -1,0 +1,16 @@
+{"id": "H01", "question": "I've been at the company four years now - how much vacation am I earning?", "must_include": [["20 days"]], "gold_docs": ["HR-002"]}
+{"id": "H02", "question": "My flight to Tokyo is 13 hours, am I allowed to sit up front?", "must_include": [["10 hours"]], "gold_docs": ["FIN-002"]}
+{"id": "H03", "question": "I left my work computer in a taxi. What's the deadline for telling someone?", "must_include": [["1 hour", "one hour"]], "gold_docs": ["SEC-001", "SEC-002"]}
+{"id": "H04", "question": "Do I get paid extra if I'm hourly and have to work on Thanksgiving?", "must_include": [["1.5"]], "gold_docs": ["HR-003"]}
+{"id": "H05", "question": "We just adopted a baby and I'm the main parent at home. How much paid time can I take?", "must_include": [["16 weeks"]], "gold_docs": ["HR-002", "HR-006"]}
+{"id": "H06", "question": "Will the company help pay for my monthly home wifi?", "must_include": [["$50"]], "gold_docs": ["HR-004", "FIN-001", "HR-006"]}
+{"id": "H07", "question": "Is it ok to set up a rule that sends my work inbox to my personal Gmail?", "must_include": [["forward"]], "gold_docs": ["SEC-002"]}
+{"id": "H08", "question": "A customer emailed asking us to erase everything we hold about them. How fast do we need to act?", "must_include": [["30 days"]], "gold_docs": ["LEG-001"]}
+{"id": "H09", "question": "How much does the company put into my health savings account if I cover my whole family?", "must_include": [["$1,500"]], "gold_docs": ["HR-006"]}
+{"id": "H10", "question": "I'm a manager - what share of my salary is my target yearly bonus?", "must_include": [["15%"]], "gold_docs": ["HR-005"]}
+{"id": "H11", "question": "A vendor offered me courtside basketball tickets worth $400. Can I take them?", "must_include": [["$100"]], "gold_docs": ["HR-001", "HR-007"]}
+{"id": "H12", "question": "After how long do I qualify for a paid month off as a long-tenure employee?", "must_include": [["7 years", "seven years"]], "gold_docs": ["HR-002"]}
+{"id": "H13", "question": "I need a USB stick to move files - is that allowed on my laptop?", "must_include": [["usb"]], "gold_docs": ["SEC-001", "SEC-002"]}
+{"id": "H14", "question": "How long until my new laptop shows up before my first day?", "must_include": [["2 business days", "two business days"]], "gold_docs": ["HR-008"]}
+{"id": "H15", "question": "I'm planning to spend six weeks working from my parents' place in Florida. Do I need anyone's OK?", "must_include": [["30 days"]], "gold_docs": ["HR-004"]}
+{"id": "H16", "question": "How many counseling sessions can I get for free through the support program?", "must_include": [["6 "]], "gold_docs": ["HR-006"]}

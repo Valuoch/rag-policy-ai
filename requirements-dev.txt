@@ -1,0 +1,3 @@
+-r requirements.txt
+pytest==9.1.1
+fpdf2==2.8.9   # only for scripts/build_pdf.py (regenerating the PDF member of the corpus)

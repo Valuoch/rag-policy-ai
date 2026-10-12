@@ -1,0 +1,20 @@
+# Render Blueprint (free web service). Deploys are triggered by the GitHub Actions
+# "deploy" job via a deploy hook after CI passes on main (autoDeploy is off).
+services:
+  - type: web
+    name: lumora-policybot
+    runtime: python
+    plan: free
+    autoDeploy: false
+    buildCommand: pip install -r requirements.txt && python -m rag.ingest
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.13.5"
+      - key: GROQ_API_KEY
+        sync: false        # set in the Render dashboard
+      - key: RERANK
+        value: "true"      # set to "false" if the 512 MB free instance runs out of memory
+      - key: USE_SYSTEM_CA
+        value: "0"

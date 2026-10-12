@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Documents{% endblock %}
+{% block content %}
+<section class="page">
+  <h1>Policy documents</h1>
+  {% if documents %}
+  <table class="doctable">
+    <thead><tr><th>ID</th><th>Title</th><th>Format</th><th>Words</th><th>Sections</th></tr></thead>
+    <tbody>
+    {% for d in documents %}
+      <tr><td><a href="/docs/{{ d.doc_id }}">{{ d.doc_id }}</a></td><td>{{ d.title }}</td>
+          <td>{{ d.format }}</td><td>{{ d.words }}</td><td>{{ d.sections|length }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>The index has not been built yet. Run <code>python -m rag.ingest</code>.</p>
+  {% endif %}
+</section>
+{% endblock %}

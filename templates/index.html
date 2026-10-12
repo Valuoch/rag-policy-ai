@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block title %}Chat{% endblock %}
+{% block content %}
+<section class="chat">
+  <div id="log" class="log" aria-live="polite">
+    <div class="msg bot intro">
+      <p>Hi! Ask me about Lumora's policies and procedures: PTO and leave, holidays, remote work,
+      expenses, travel, security, privacy, benefits, performance, conduct, onboarding.
+      Every answer cites the policy it comes from.</p>
+      <div class="chips">
+        <button class="chip">How many PTO days do I get after 4 years?</button>
+        <button class="chip">What is the hotel cap in New York?</button>
+        <button class="chip">How fast must I report a lost laptop?</button>
+        <button class="chip">What is the 401(k) match?</button>
+      </div>
+    </div>
+  </div>
+  <form id="ask" class="ask" autocomplete="off">
+    <input id="q" name="question" maxlength="500" placeholder="Ask a policy question..." aria-label="Question" required>
+    <button type="submit" id="send">Ask</button>
+  </form>
+  <p class="foot">Answers come only from {{ documents|length }} indexed policy documents. <a href="/docs">Browse documents</a>.</p>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+const log = document.getElementById('log');
+const form = document.getElementById('ask');
+const input = document.getElementById('q');
+const send = document.getElementById('send');
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+// Render "[1]" markers as links to the matching citation card.
+function renderAnswer(text, msgId) {
+  const p = el('div', 'answer');
+  const parts = text.split(/(\[\d+(?:,\s*\d+)*\])/g);
+  for (const part of parts) {
+    const m = part.match(/^\[(\d+(?:,\s*\d+)*)\]$/);
+    if (m) {
+      for (const n of m[1].split(/,\s*/)) {
+        const a = el('a', 'cite', n);
+        a.href = `#${msgId}-c${n}`;
+        p.appendChild(a);
+      }
+    } else {
+      p.appendChild(document.createTextNode(part));
+    }
+  }
+  return p;
+}
+
+async function ask(question) {
+  log.appendChild(el('div', 'msg user', question));
+  const pending = el('div', 'msg bot pending', 'Searching the policies...');
+  log.appendChild(pending);
+  log.scrollTop = log.scrollHeight;
+  send.disabled = true;
+  try {
+    const res = await fetch('/chat', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({question}),
+    });
+    const data = await res.json();
+    pending.remove();
+    const msg = el('div', 'msg bot' + (data.refused ? ' refused' : ''));
+    const msgId = 'm' + Date.now();
+    if (!res.ok) {
+      msg.classList.add('error');
+      msg.textContent = data.error || 'Something went wrong.';
+    } else {
+      msg.appendChild(renderAnswer(data.answer, msgId));
+      if (data.citations && data.citations.length) {
+        const list = el('ol', 'sources');
+        for (const c of data.citations) {
+          const li = el('li', 'source');
+          li.id = `${msgId}-c${c.n}`;
+          const head = el('div', 'source-head');
+          head.appendChild(el('span', 'num', c.n));
+          const a = el('a', null, `${c.doc_id} · ${c.title}`);
+          a.href = c.url; a.target = '_blank'; a.rel = 'noopener';
+          head.appendChild(a);
+          li.appendChild(head);
+          li.appendChild(el('div', 'section', c.section));
+          li.appendChild(el('blockquote', null, c.snippet));
+          list.appendChild(li);
+        }
+        msg.appendChild(list);
+      }
+      msg.appendChild(el('div', 'meta', `${data.mode === 'llm' ? data.model : 'extractive mode'} · ${Math.round(data.latency_ms)} ms`));
+    }
+    log.appendChild(msg);
+  } catch (e) {
+    pending.textContent = 'Network error: ' + e;
+    pending.classList.add('error');
+  } finally {
+    send.disabled = false;
+    log.scrollTop = log.scrollHeight;
+    input.focus();
+  }
+}
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const q = input.value.trim();
+  if (!q) return;
+  input.value = '';
+  ask(q);
+});
+document.querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => ask(b.textContent)));
+input.focus();
+</script>
+{% endblock %}

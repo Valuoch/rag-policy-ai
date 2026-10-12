@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+.cache/
+index/
+index_ablation/
+*.log
+.DS_Store
+Thumbs.db
+# assignment brief
+b516ccaf2905b8f2e096654299cd902a.pdf

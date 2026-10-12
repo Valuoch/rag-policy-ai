@@ -1,0 +1,267 @@
+Document ID: FIN-002
+Title: Business Travel Policy
+Version: 3.2
+Effective date: 2026-01-01
+Owner: Chief Financial Officer (CFO)
+Applies to: All Lumora Systems, Inc. employees who travel on company business
+Contact: travel@lumora.example
+
+
+1. PURPOSE
+
+This policy sets out how employees of Lumora Systems, Inc. ("Lumora" or "the company") plan, approve, book, and complete business travel. It aims to keep travelers safe, keep travel costs reasonable and predictable, and make sure that travel spending is properly approved and recorded. It works together with FIN-001 Expense Reimbursement Policy, which governs how travel expenses are claimed and reimbursed.
+
+
+2. SCOPE
+
+This policy applies to all Lumora employees in the United States, including employees on On-site, Hybrid, and Remote work arrangements, who travel for business purposes. Business purposes include customer meetings, sales visits, implementation work, conferences, training, recruiting events, and travel to a Lumora office or team gathering.
+
+It covers air travel, rail, hotels and other lodging, rental cars, ground transportation, meals while traveling, international travel, and combining business and personal travel. Candidates, contractors, and guests whose travel Lumora pays for must also be booked under this policy by their Lumora host.
+
+Daily commuting to an employee's regular work location is not business travel. Working temporarily from another location for personal reasons is not business travel and is covered by HR-004 Remote & Hybrid Work Policy.
+
+
+3. DEFINITIONS
+
+- Business travel: travel away from the employee's regular work location, approved in advance, for a Lumora business purpose.
+- Navan: Lumora's approved online travel booking platform, used for all air, hotel, and rail reservations.
+- Pre-trip approval: the manager's approval of a trip before any booking is made, recorded in Navan.
+- Domestic travel: travel within the United States.
+- International travel: any travel outside the United States.
+- Flight duration: the scheduled time of a single flight segment from departure to arrival, not including layovers.
+- High-cost city: New York, San Francisco, Boston, Seattle, Washington DC, or London.
+- International SOS: the travel security and medical assistance program Lumora uses to support travelers.
+- Bleisure: a business trip that the traveler extends with personal days before or after the business portion.
+
+
+4. TRAVEL APPROVAL AND BOOKING
+
+
+4.1 PRE-TRIP APPROVAL
+
+All business travel requires pre-trip approval from the employee's manager. Approval must be obtained before any reservation is made. In Navan, the trip request routes automatically to the manager, who approves or declines it. The request must include the destination, dates, business purpose, and estimated total cost.
+
+International travel requires additional approval from the employee's department Vice President (VP), after the manager has approved. In addition, every international traveler must register the trip with the International SOS travel security program at least 7 days before departure. Trips booked in Navan register with International SOS automatically, but the traveler is responsible for confirming that registration is complete and that their emergency contact details are current.
+
+Managers should consider whether a trip is necessary or whether a video meeting would achieve the same result.
+
+
+4.2 BOOKING THROUGH NAVAN
+
+Book all air, hotel, and rail travel through Navan. Navan applies Lumora's policy rules, shows in-policy options, gives Lumora negotiated rates, and allows the company to locate travelers in an emergency.
+
+Bookings outside Navan require a written justification in the expense report, for example when a conference hotel block can only be booked through the conference organizer, or when Navan has no availability. Bookings outside Navan without justification may not be reimbursed. Travelers who book outside Navan must forward the itinerary to travel@lumora.example so that the trip can be recorded for duty of care.
+
+
+4.3 ADVANCE BOOKING
+
+Book flights at least 14 days in advance when possible. Earlier booking usually lowers fares and gives more choice. When a trip is booked fewer than 14 days before departure, Navan asks for a reason, which is shown to the approving manager. Urgent customer issues are an acceptable reason; poor planning is not.
+
+
+5. AIR TRAVEL
+
+
+5.1 CLASS OF SERVICE
+
+The permitted class of air travel depends on the scheduled duration of the flight:
+
+- Flights under 6 hours: economy class.
+- Flights of 6 hours or more: premium economy is allowed.
+- Flights over 10 hours: business class is allowed only with VP approval. Without VP approval, premium economy applies.
+
+The class rules apply to each flight segment, not to the total journey time. For example, a trip from Austin to London with a connection in New York has a short segment (economy) and a long segment (premium economy, or business class with VP approval if the segment is over 10 hours).
+
+Seat upgrades and class upgrades that are not pre-approved are not reimbursed. Travelers may use their own loyalty points or status benefits to upgrade at no cost to Lumora.
+
+
+5.2 CHOOSING FLIGHTS
+
+- Select the lowest logical fare: the lowest available fare that fits the business schedule, with a reasonable number of connections.
+- Non-refundable fares are acceptable for most trips. Navan holds unused ticket credits for future Lumora travel.
+- Checked bag fees for one standard bag are reimbursable; fees for additional or overweight bags require a business reason, such as carrying demo equipment.
+- Paid seat selection in economy is reimbursable only when needed to sit with colleagues traveling together or for a documented medical reason.
+- In-flight Wi-Fi is reimbursable when needed for work.
+
+
+5.3 CHANGES AND CANCELLATIONS
+
+Make changes and cancellations through Navan so that ticket credits are captured. Change fees caused by business needs are reimbursable. Change fees caused by personal reasons are paid by the traveler.
+
+
+6. RAIL TRAVEL
+
+Rail travel is encouraged where it is practical and cost-effective, for example in the Northeast corridor of the United States and within Europe. Book rail through Navan. Standard or coach class is the default; business class rail is allowed for journeys of more than 4 hours.
+
+
+7. HOTELS AND LODGING
+
+
+7.1 NIGHTLY RATE CAPS
+
+Hotel rates are capped at $250 per night in standard locations, or $350 per night in high-cost cities. The high-cost cities are New York, San Francisco, Boston, Seattle, Washington DC, and London.
+
+The cap applies to the nightly room rate, excluding taxes and mandatory local fees. If no room is available at or below the cap within a reasonable distance of the business location, for example during a major conference, the traveler should choose the lowest-cost reasonable option and record the reason in Navan. Navan flags rates above the cap for manager review.
+
+
+7.2 LODGING RULES
+
+- Book standard rooms. Suites and premium rooms are not reimbursed unless they cost no more than a standard room.
+- Hotel minibar charges, in-room movies, spa services, and gym fees are not reimbursed (see FIN-001).
+- Reasonable hotel internet charges and laundry for trips of 5 nights or more are reimbursable.
+- Cancel reservations you will not use before the hotel's cancellation deadline. No-show charges caused by failing to cancel are paid by the traveler unless the reason was a business emergency.
+- Short-term rentals (such as apartment rentals) may be booked through Navan when they cost less than a comparable hotel, for example for long implementation projects. They must meet basic safety standards.
+- Staying with friends or family is allowed; Lumora does not pay a lodging allowance in that case, but a modest thank-you gift is not reimbursable either.
+
+Always obtain the itemized hotel folio at checkout. FIN-001 requires it for every hotel stay.
+
+
+8. GROUND TRANSPORTATION
+
+
+8.1 RENTAL CARS
+
+Rental cars are permitted when they are more economical or practical than taxis, rideshare, or public transport, for example when visiting several customer sites in one day.
+
+- Rent compact or midsize cars. Larger vehicles require a business reason, such as several employees traveling together or carrying equipment.
+- Book rental cars through Navan to receive Lumora's negotiated rates.
+- In the United States, decline the extra collision damage waiver and liability insurance offered by the rental company, because these risks are covered by the company's insurance policy. Outside the United States, accept the rental company's basic collision and liability coverage, because the company policy may not apply.
+- Refuel the car before returning it. Prepaid fuel options are not reimbursed unless the car is returned with an empty tank.
+- Report any accident or damage to the rental company, to your manager, and to travel@lumora.example within 24 hours.
+- Traffic and parking fines are the traveler's responsibility and are never reimbursed.
+
+
+8.2 RIDESHARE, TAXI, AND PUBLIC TRANSPORT
+
+Rideshare and taxi services are permitted for business travel, including trips to and from airports. Standard ride categories should be used; premium or luxury categories are not reimbursed unless no standard option is available. Public transport is encouraged where it is safe and convenient.
+
+
+8.3 PERSONAL VEHICLES AND AIRPORT PARKING
+
+Employees may drive their personal vehicle to a business destination or to the airport. Mileage is reimbursed at the current IRS standard mileage rate as described in FIN-001, but the total should not exceed the cost of the equivalent economy airfare for long-distance trips. Airport parking is reimbursable; use economy or long-term parking for trips longer than one day.
+
+
+9. MEALS AND INCIDENTALS WHILE TRAVELING
+
+Per diem rules for meals while traveling follow the meal caps in FIN-001 Expense Reimbursement Policy. In summary, meals for domestic travel are reimbursed at actual cost up to $75 per day, and meals for international travel up to $100 per day. Alcohol is reimbursable only as part of client entertainment, never for solo meals. Refer to FIN-001 for the full rules on meal receipts, client entertainment, and tips.
+
+Reasonable incidental expenses directly related to business, such as baggage tips, are reimbursable with a description. Personal items are not.
+
+
+10. INTERNATIONAL TRAVEL
+
+
+10.1 APPROVALS AND REGISTRATION
+
+International travel requires manager approval, department VP approval, and registration with International SOS at least 7 days before departure (see Section 4.1). Travel to sanctioned countries is prohibited. Travel to countries rated high-risk by International SOS also requires review by Security and Legal before booking.
+
+
+10.2 PASSPORTS, VISAS, AND HEALTH
+
+- Travelers are responsible for holding a valid passport. Many countries require at least 6 months of validity remaining after the date of entry.
+- Visa fees and the cost of required business visas are reimbursable. Passport application and renewal fees are reimbursable only when the passport is needed for business travel and the traveler does not already hold a valid one.
+- Required vaccinations for business travel are reimbursable when not covered by the traveler's medical plan (see HR-006).
+- International SOS provides medical and security assistance 24/7. Save its contact details before departure.
+
+
+10.3 DEVICES AND DATA ABROAD
+
+Take only the Lumora-issued devices and data needed for the trip. Keep devices with you at all times and use the GlobalProtect VPN on every network, as required by HR-004 and SEC-001. Some countries restrict encryption software or inspect devices at the border; Security may issue a temporary loaner laptop for such destinations. Report any lost, stolen, or inspected device to Security within 1 hour, as required by SEC-001, using security@lumora.example, #sec-incidents, or the security incident hotline 1-512-555-0199.
+
+
+10.4 CURRENCY
+
+Use the corporate card where possible. Expenses incurred in foreign currency are converted in SAP Concur at the exchange rate on the transaction date or as shown on the card statement.
+
+
+11. COMBINING BUSINESS AND PERSONAL TRAVEL (BLEISURE)
+
+Employees may add personal days before or after a business trip, as long as the added cost is borne by the employee. The traveler must:
+
+- Get pre-trip approval for the business portion in the usual way.
+- Record the personal days in the Navan trip request so the manager can see them.
+- Request PTO in Workday for any personal workdays, as described in HR-002 Paid Time Off & Leave Policy.
+- Pay personally for hotel nights, meals, rental car days, and any other costs of the personal days.
+- Pay any increase in airfare caused by the personal days. Attach a fare comparison from Navan showing the fare for the business-only dates; Lumora reimburses the lower of the two fares.
+
+Spouses, partners, family members, and companions may accompany a traveler at their own expense. Their airfare, meals, and other costs are not reimbursable (see FIN-001). Lumora's travel insurance and International SOS coverage apply only to the employee.
+
+
+12. LOYALTY PROGRAMS
+
+Employees may keep the airline miles, hotel points, and rental car loyalty points they earn on business travel. Loyalty programs must not influence booking choices: travelers must not choose a more expensive flight, hotel, or car, or take an indirect route, in order to earn points or status.
+
+
+13. CORPORATE CARD AND EXPENSE SUBMISSION
+
+Employees who travel 4 or more times per year are eligible for a Lumora corporate card (Amex), as described in FIN-001. Use the corporate card for travel expenses where possible. Navan charges airfare and rail directly to the company account, so these do not need to be paid personally.
+
+Submit all trip expenses in SAP Concur within 30 days of the last day of the trip, following FIN-001. Attach the Navan itinerary and the itemized hotel folio.
+
+
+14. SAFETY AND EMERGENCIES
+
+- Keep your manager informed of significant changes to your itinerary.
+- In a medical or security emergency abroad, contact local emergency services first, then International SOS.
+- If a natural disaster, civil unrest, or other incident occurs near you, respond promptly to any check-in message from International SOS or Lumora.
+- Report workplace injuries that occur while traveling to HR at hr@lumora.example.
+- Report any harassment or misconduct experienced during business travel under HR-007.
+
+
+15. ROLES AND RESPONSIBILITIES
+
+- Travelers plan cost-effective trips, obtain approvals before booking, book through Navan, stay safe, and submit expenses on time.
+- Managers approve or decline trips based on business need and cost, and review policy exceptions shown in Navan and Concur.
+- Department VPs approve international travel and business class for flights over 10 hours.
+- The Travel team (travel@lumora.example) manages the Navan program, negotiated rates, and traveler support.
+- Finance audits travel expenses for compliance with this policy and FIN-001.
+- Security and Legal review travel to high-risk destinations.
+
+
+16. FREQUENTLY ASKED QUESTIONS
+
+Q1. Do I have to book through Navan?
+Yes. All air, hotel, and rail travel must be booked through Navan. Bookings outside Navan need a written justification and the itinerary must be sent to travel@lumora.example.
+
+Q2. How far in advance should I book flights?
+Book flights at least 14 days in advance when possible.
+
+Q3. Can I fly business class to Singapore?
+Only if the flight segment is over 10 hours and your VP approves. Otherwise, premium economy is allowed for flights of 6 hours or more, and economy for flights under 6 hours.
+
+Q4. What is the hotel limit in Seattle?
+Seattle is a high-cost city, so the cap is $350 per night. In standard locations the cap is $250 per night.
+
+Q5. Should I buy the rental company's insurance?
+In the United States, decline the extra insurance, because the company's policy covers it. Rent a compact or midsize car.
+
+Q6. What do I need to do before an international trip?
+Get approval from your manager and your department VP, and register with International SOS at least 7 days before departure.
+
+Q7. Can I add a weekend at the beach after my conference?
+Yes, as long as you pay for any added cost, such as extra hotel nights and any increase in airfare, and request PTO for any personal workdays.
+
+Q8. Can I keep the airline miles I earn?
+Yes. You may keep loyalty points, but they must not influence your booking choices.
+
+
+17. RELATED POLICIES
+
+- FIN-001 Expense Reimbursement Policy (meal caps, receipts, approvals, mileage, corporate card)
+- HR-001 Employee Handbook & Code of Conduct (conduct while traveling, gifts)
+- HR-002 Paid Time Off & Leave Policy (PTO for personal days added to trips)
+- HR-004 Remote & Hybrid Work Policy (working from other locations, VPN use)
+- HR-006 Employee Benefits Guide (medical coverage and vaccinations)
+- HR-007 Anti-Harassment, Equal Opportunity & Workplace Conduct Policy (reporting misconduct)
+- SEC-001 Information Security Policy (device security and incident reporting)
+- LEG-001 Data Privacy & Protection Policy (handling personal data while traveling)
+
+
+18. REVISION HISTORY
+
+Version  Date        Author (role)             Summary of changes
+-------  ----------  ------------------------  --------------------------------------------------------
+1.0      2016-01-01  Controller                Initial travel policy.
+2.0      2020-01-01  Chief Financial Officer   Moved all bookings to Navan; added pre-trip approval.
+3.0      2023-01-01  Chief Financial Officer   Added high-cost city hotel cap and International SOS.
+3.1      2025-01-01  Travel Program Manager    Clarified class of service by segment; added bleisure.
+3.2      2026-01-01  Chief Financial Officer   Annual review; updated rental car insurance guidance.
