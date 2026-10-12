@@ -99,13 +99,15 @@ class Judge:
             from rag.llm import LLMClient
 
             self.client = LLMClient(settings)
-        self.kind = f"llm-judge ({settings.llm_model})" if self.client else "lexical"
+        self.settings = settings
+        self.kind = f"llm-judge ({settings.judge_model})" if self.client else "lexical"
 
     def grounded(self, answer: str, context: str) -> tuple[bool, str]:
         if self.client is None:
             return lexical_grounded(answer, context)
         out = self.client.complete(
-            [{"role": "user", "content": JUDGE_PROMPT.format(context=context, answer=answer)}], max_tokens=150
+            [{"role": "user", "content": JUDGE_PROMPT.format(context=context, answer=answer)}], max_tokens=200,
+            model=self.settings.judge_model, reasoning_effort=self.settings.judge_reasoning_effort,
         )
         m = re.search(r"\{.*\}", out, re.S)
         try:
@@ -116,7 +118,7 @@ class Judge:
 
 
 # --------------------------------------------------------------------------- end-to-end eval
-def run_end_to_end(questions: list[dict], settings, run_name: str) -> dict:
+def run_end_to_end(questions: list[dict], settings, run_name: str, delay: float = 0.0) -> dict:
     import app as webapp
 
     pipeline = webapp.get_pipeline()
@@ -127,6 +129,7 @@ def run_end_to_end(questions: list[dict], settings, run_name: str) -> dict:
 
     rows = []
     for q in questions:
+        time.sleep(delay)  # stay under free-tier tokens/minute limits; not included in latency
         t = time.perf_counter()
         resp = client.post("/chat", json={"question": q["question"]})
         latency = (time.perf_counter() - t) * 1000
@@ -167,7 +170,8 @@ def run_end_to_end(questions: list[dict], settings, run_name: str) -> dict:
         "mode": pipeline.mode,
         "model": pipeline.model_name,
         "judge": judge.kind,
-        "settings": {"top_k": settings.top_k, "rerank": settings.rerank, "chunk_size": settings.chunk_size,
+        "settings": {"reasoning_effort": settings.llm_reasoning_effort if pipeline.llm else None,
+                     "top_k": settings.top_k, "rerank": settings.rerank, "chunk_size": settings.chunk_size,
                      "chunk_overlap": settings.chunk_overlap, "embedding_model": settings.embedding_model,
                      "temperature": settings.temperature, "max_answer_tokens": settings.max_answer_tokens},
         "n_questions": len(rows), "n_in_scope": len(in_scope), "n_answered": len(answered), "n_out_of_scope": len(oos),
@@ -252,6 +256,8 @@ def main(argv: list[str] | None = None) -> None:
     ap.add_argument("--ablations", action="store_true", help="also run retrieval ablations")
     ap.add_argument("--ablations-only", action="store_true")
     ap.add_argument("--run-name", help="results sub-folder (default: <mode>)")
+    ap.add_argument("--delay", type=float, default=0.0,
+                    help="seconds to pause between questions (rate limits); excluded from latency")
     a = ap.parse_args(argv)
 
     random.seed(SEED)
@@ -263,7 +269,7 @@ def main(argv: list[str] | None = None) -> None:
 
     if not a.ablations_only:
         run_name = a.run_name or ("llm" if settings.llm_enabled else "extractive")
-        summary = run_end_to_end(questions, settings, run_name)
+        summary = run_end_to_end(questions, settings, run_name, a.delay)
         print(json.dumps(summary, indent=2))
     if a.ablations or a.ablations_only:
         run_ablations(load_questions(), settings)

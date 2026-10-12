@@ -28,3 +28,10 @@ def test_clean_question():
 def test_refusal_detection():
     assert g.is_refusal(g.REFUSAL)
     assert not g.is_refusal("You get 20 days [1].")
+
+
+def test_normalize_model_citation_brackets():
+    from rag.llm import normalize_output
+
+    out = normalize_output("Use them by March 31 【1】【2†L5】, carried‑over days.")
+    assert out == "Use them by March 31 [1][2], carried-over days."

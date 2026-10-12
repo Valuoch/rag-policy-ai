@@ -36,6 +36,14 @@ def build_messages(question: str, passages: list[Passage]) -> list[dict]:
     return [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": user}]
 
 
+def normalize_output(text: str) -> str:
+    """Map model-specific citation brackets (gpt-oss writes \u30101\u3011) to [1] and fancy hyphens to '-'."""
+    text = re.sub("\u3010\\s*(\\d+)[^\u3011]*\u3011", r"[\1]", text)
+    text = re.sub("[\u2010\u2011\u2012\u2013]", "-", text)
+    text = text.replace("\u202f", " ").replace("\u00a0", " ")
+    return text.strip()
+
+
 class LLMClient:
     def __init__(self, settings: Settings):
         from openai import OpenAI
@@ -47,14 +55,17 @@ class LLMClient:
         self.client = OpenAI(api_key=settings.llm_api_key, base_url=settings.llm_base_url,
                              timeout=settings.llm_timeout, max_retries=2)
 
-    def complete(self, messages: list[dict], max_tokens: int | None = None) -> str:
+    def complete(self, messages: list[dict], max_tokens: int | None = None, model: str | None = None,
+                 reasoning_effort: str | None = None) -> str:
+        effort = self.s.llm_reasoning_effort if reasoning_effort is None else reasoning_effort
         resp = self.client.chat.completions.create(
-            model=self.s.llm_model,
+            model=model or self.s.llm_model,
             messages=messages,
             temperature=self.s.temperature,
             max_tokens=max_tokens or self.s.max_answer_tokens,
+            extra_body={"reasoning_effort": effort} if effort else None,
         )
-        return (resp.choices[0].message.content or "").strip()
+        return normalize_output(resp.choices[0].message.content or "")
 
     def answer(self, question: str, passages: list[Passage]) -> str:
         return self.complete(build_messages(question, passages))

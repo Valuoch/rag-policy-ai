@@ -3,7 +3,7 @@
 ## Tools
 - **Claude Code** (Anthropic's agentic coding CLI, used inside VS Code) was the main tool. It read the assignment brief, proposed the architecture, wrote most of the code, tests, CI workflow and documentation, ran the commands (venv, ingestion, pytest, evaluation, a local server), and iterated on the failures it found.
 - **Claude Code sub-agents** wrote the synthetic policy corpus in parallel. Four agents each drafted 3–4 policy documents.
-- **Groq-hosted Llama 3.3 70B** is the runtime LLM. It also serves as the groundedness judge in the evaluation. That is part of the product, not the development tooling, but it is listed here for completeness.
+- **Groq-hosted models** are used at runtime: `openai/gpt-oss-120b` generates the answers, and `qwen/qwen3.8-27b`, a different model family, judges groundedness in the evaluation. That is part of the product, not the development tooling, but it is listed here for completeness.
 
 ## How they were used
 1. **Planning.** The brief's requirements were turned into a module layout (`rag/` package, Flask app, eval harness, CI) and a list of design choices to justify.

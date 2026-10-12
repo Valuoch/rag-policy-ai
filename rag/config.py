@@ -45,19 +45,19 @@ def _llm_defaults() -> tuple[str, str, str]:
         return (
             os.environ["LLM_API_KEY"],
             os.getenv("LLM_BASE_URL", "https://api.groq.com/openai/v1"),
-            os.getenv("LLM_MODEL", "llama-3.3-70b-versatile"),
+            os.getenv("LLM_MODEL", "openai/gpt-oss-120b"),
         )
     if os.getenv("GROQ_API_KEY"):
         return (
             os.environ["GROQ_API_KEY"],
             os.getenv("LLM_BASE_URL", "https://api.groq.com/openai/v1"),
-            os.getenv("LLM_MODEL", "llama-3.3-70b-versatile"),
+            os.getenv("LLM_MODEL", "openai/gpt-oss-120b"),
         )
     if os.getenv("OPENROUTER_API_KEY"):
         return (
             os.environ["OPENROUTER_API_KEY"],
             os.getenv("LLM_BASE_URL", "https://openrouter.ai/api/v1"),
-            os.getenv("LLM_MODEL", "meta-llama/llama-3.3-70b-instruct:free"),
+            os.getenv("LLM_MODEL", "openai/gpt-oss-120b:free"),
         )
     return ("", os.getenv("LLM_BASE_URL", ""), os.getenv("LLM_MODEL", "extractive"))
 
@@ -95,6 +95,12 @@ class Settings:
     max_answer_chars: int = field(default_factory=lambda: int(os.getenv("MAX_ANSWER_CHARS", "1500")))
     max_question_chars: int = field(default_factory=lambda: int(os.getenv("MAX_QUESTION_CHARS", "500")))
     llm_timeout: float = field(default_factory=lambda: float(os.getenv("LLM_TIMEOUT", "30")))
+    # Sent as `reasoning_effort` for reasoning models (gpt-oss: low|medium|high; qwen3: none|default).
+    # Empty = parameter not sent (non-reasoning models reject it).
+    llm_reasoning_effort: str = field(default_factory=lambda: os.getenv("LLM_REASONING_EFFORT", "low"))
+    # Groundedness judge for the evaluation: a different model family than the generator.
+    judge_model: str = field(default_factory=lambda: os.getenv("JUDGE_MODEL", "qwen/qwen3.8-27b"))
+    judge_reasoning_effort: str = field(default_factory=lambda: os.getenv("JUDGE_REASONING_EFFORT", "none"))
 
     def __post_init__(self) -> None:
         key, base, model = _llm_defaults()

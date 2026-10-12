@@ -25,7 +25,7 @@ PolicyBot answers employee questions about Lumora Systems' policies. Every answe
                                              └► cross-encoder re-rank ─► top-4 passages
                ─► gate: off-topic? ── yes ──► refusal (no LLM call)
                ─► prompt (system rules + numbered sources [1]..[4] + question)
-               ─► LLM (Groq llama-3.3-70b, T=0, ≤350 tokens)   | no key: extractive fallback
+               ─► LLM (Groq gpt-oss-120b, T=0, ≤350 tokens) | no key: extractive fallback
                ─► guardrails: refusal detection, drop invalid [n], retry if uncited,
                   length cap ─► JSON {answer, citations[doc_id, title, section, snippet, url], ...}
 ```
@@ -84,8 +84,13 @@ Six checks, in the order they run:
 5. **Output length:** `max_tokens=350`, plus a hard 1,500-character cap cut at a sentence boundary.
 6. **Errors:** LLM or network failures return a 503 with a generic message and no stack trace.
 
-### Generation model: Groq `llama-3.3-70b-versatile` (OpenAI-compatible client)
-The free tier is fast: Groq's LPU inference typically returns in under a second. A 70B model follows the citation and refusal instructions far more reliably than 8B models. The client accepts any OpenAI-compatible endpoint (`LLM_BASE_URL`, `LLM_MODEL`), so OpenRouter's free models or a paid key can be swapped in through environment variables.
+### Generation model: Groq `openai/gpt-oss-120b` (OpenAI-compatible client)
+- **Choice:** I compared the models available on Groq's free tier on real RAG prompts. `gpt-oss-120b` and `qwen3.8-27b` both answered correctly with proper `[n]` citations and both refused the stock-price question. I picked the 120B model, with `reasoning_effort=low` and temperature 0, for its stronger instruction following.
+- **Speed:** a call takes about 1.2–1.4 s, and low reasoning effort keeps hidden reasoning from eating the 350-token answer budget.
+- **Output normalisation:** `gpt-oss` sometimes writes citations in its native `【1】` style, which `normalize_output` maps back to `[1]`.
+- **Deprecated default:** Groq's original default model, `llama-3.3-70b-versatile`, returned `model_not_found` for this account.
+- **Portability:** the client accepts any OpenAI-compatible endpoint (`LLM_BASE_URL`, `LLM_MODEL`, `LLM_REASONING_EFFORT`), so OpenRouter or a paid key can be swapped in through environment variables.
+- **Rate limit:** the free tier allows about 8k tokens per minute, roughly 4 RAG calls a minute. The evaluation paces requests with `--delay`, and the pause is not counted in latency.
 
 **Extractive fallback:** with no key, the app answers by choosing the 1–2 most relevant sentences from the top 3 passages, scored by the cross-encoder, and cites each one. Its answers are grounded by construction, and they keep CI, tests and demos working offline. A sentence-score floor of -8.5 gives this mode its own off-topic refusal.
 
@@ -103,7 +108,7 @@ The free tier is fast: Groq's LPU inference typically returns in under a second.
 
 Metrics, computed by `python -m eval.run_eval`:
 - **Groundedness:** % of answered in-scope questions where every claim is supported by the retrieved context.
-  - In LLM mode, an **LLM judge** (the same Groq model, temperature 0, JSON verdict) decides this.
+  - In LLM mode, an **LLM judge** decides this. The judge is `qwen/qwen3.8-27b`, a different model family from the generator, run at temperature 0 and returning a JSON verdict.
   - Without a key, a strict lexical check is used: every number in each sentence, and at least 80% of its content words, must appear in the retrieved passages.
 - **Citation accuracy:** % of answered in-scope questions where (a) every cited passage comes from a gold document **and** (b) the cited passages themselves contain all the gold key facts. This checks that the citation points to the passage that supports the answer, not merely to the right document. Citation precision, the share of individual citations from gold documents, is reported alongside it.
 - **Exact / partial match:** the answer contains all / at least one of the gold key facts.
@@ -115,7 +120,7 @@ Metrics, computed by `python -m eval.run_eval`:
 
 ### 5.1 End-to-end (30 questions; `eval/results/<mode>/summary.json`)
 
-| Metric | LLM mode (Groq llama-3.3-70b) | Extractive mode (no LLM) |
+| Metric | LLM mode (Groq gpt-oss-120b) | Extractive mode (no LLM) |
 |---|---|---|
 | Groundedness | _pending: run with GROQ_API_KEY_ | 100.0% (lexical check) |
 | Citation accuracy | _pending_ | 100.0% |
@@ -164,6 +169,6 @@ The chunk count drops only slightly from 220 to 400 words because most policy se
 
 ### 5.4 Limitations and next steps
 - **Synthetic, internally consistent corpus.** Real policy sets contain contradictions and stale versions. The next step would be to add version and effective-date metadata and filter on it.
-- **Groundedness judging.** The LLM judge uses the same model family that generated the answer, so it may share its blind spots. A different judge model, or a spot check by hand, would strengthen the result.
+- **Groundedness judging.** The judge (`qwen3.8-27b`) is a different model family from the generator, which reduces self-preference. It is still a single automated judge, so a spot check by hand would strengthen the result.
 - **Small question sets.** 30 + 16 questions are enough to compare configurations but give wide confidence intervals. Each question is worth about 3.7 points.
 - **CPU cost of re-ranking.** It is about 0.5 s per query on the CPU. Lowering `FETCH_K` or turning off `RERANK` trades a little paraphrase recall for speed or memory on the free instance.

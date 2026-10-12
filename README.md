@@ -2,7 +2,7 @@
 
 PolicyBot answers employee questions about the policies and procedures of **Lumora Systems, Inc.**, a fictional company with a synthetic corpus of 13 policies (~33k words, ~67 pages, in Markdown, HTML, TXT and PDF). It retrieves the relevant policy passages and generates a short answer from them. Every answer cites its sources with document IDs, section names, snippets and links. It refuses questions that the policies don't cover.
 
-- **Stack:** Flask · Chroma (local, persistent) · `BAAI/bge-small-en-v1.5` embeddings plus an `ms-marco-MiniLM-L-6-v2` cross-encoder re-ranker. Both models are free and run locally on ONNX via fastembed. Any OpenAI-compatible chat LLM can generate the answers (default: Groq free tier, `llama-3.3-70b-versatile`).
+- **Stack:** Flask · Chroma (local, persistent) · `BAAI/bge-small-en-v1.5` embeddings plus an `ms-marco-MiniLM-L-6-v2` cross-encoder re-ranker. Both models are free and run locally on ONNX via fastembed. Any OpenAI-compatible chat LLM can generate the answers (default: Groq free tier, `openai/gpt-oss-120b`).
 - **Endpoints:**
   - `GET /`: chat UI.
   - `POST /chat`: answer with citations and snippets.
@@ -42,7 +42,7 @@ curl -X POST localhost:8000/chat -H "Content-Type: application/json" \
   "citations": [{"n": 1, "doc_id": "HR-002", "title": "Paid Time Off & Leave Policy",
                  "section": "4. Paid Time Off (PTO) > 4.1 PTO accrual by tenure", "snippet": "...",
                  "url": "/docs/HR-002#sec-4", "score": 8.28}],
-  "retrieved": [...], "mode": "llm", "model": "llama-3.3-70b-versatile", "latency_ms": 912.4
+  "retrieved": [...], "mode": "llm", "model": "openai/gpt-oss-120b", "latency_ms": 912.4
 }
 ```
 
@@ -87,7 +87,7 @@ Settings are environment variables; the full list is in `.env.example`. The main
 | Variable | Default | Purpose |
 |---|---|---|
 | `GROQ_API_KEY` / `OPENROUTER_API_KEY` / `LLM_API_KEY` | – | Enables LLM generation (otherwise extractive mode) |
-| `LLM_MODEL`, `LLM_BASE_URL` | `llama-3.3-70b-versatile`, Groq | Any OpenAI-compatible endpoint |
+| `LLM_MODEL`, `LLM_BASE_URL`, `LLM_REASONING_EFFORT` | `openai/gpt-oss-120b`, Groq, `low` | Any OpenAI-compatible endpoint (set the effort empty for non-reasoning models) |
 | `TOP_K`, `FETCH_K`, `RERANK` | 4, 20, true | Retrieval depth and cross-encoder re-ranking |
 | `CHUNK_SIZE`, `CHUNK_OVERLAP` | 220, 40 (words) | Chunking |
 | `MIN_RERANK_SCORE` | -4.0 | Retrieval gate: refuse below this |
