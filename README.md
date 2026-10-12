@@ -9,6 +9,7 @@ PolicyBot answers employee questions about the policies and procedures of **Lumo
   - `GET /health`: JSON status.
   - `GET /docs/<id>`: the source document, with each section anchored.
 - **Docs:** [design-and-evaluation.md](design-and-evaluation.md) · [ai-tooling.md](ai-tooling.md) · [deployed.md](deployed.md)
+- **Plain-English project report (PDF):** [PolicyBot-Project-Report.pdf](PolicyBot-Project-Report.pdf), a step-by-step account for non-technical readers (rebuild with `python scripts/build_report_pdf.py`)
 
 ## Quick start
 

@@ -71,6 +71,7 @@ jobs:
           path: |
             reports/
             index/manifest.json
+            PolicyBot-Project-Report.pdf
           if-no-files-found: warn
 
   deploy:

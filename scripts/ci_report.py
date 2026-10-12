@@ -105,8 +105,14 @@ def eval_section() -> list[str]:
     if not rows:
         return ["## Evaluation (latest committed results)", "", "_No evaluation results committed._", ""]
     fmt = lambda v: "-" if v is None else f"{v}%"  # noqa: E731
+    n = rows[0]
     lines = ["## Evaluation (latest committed results)", "",
-             "Produced by `python -m eval.run_eval` (CI does not call the LLM). 30 questions, 27 in scope and 3 out of scope.", "",
+             "**What this is:** PolicyBot's scores on a fixed test of "
+             f"{n['n_questions']} questions with answers prepared in advance: {n['n_in_scope']} real policy questions "
+             f"(e.g. *How many PTO days after 4 years?*) and {n['n_out_of_scope']} deliberately off-topic ones "
+             "(e.g. *What is Lumora's stock price?*) that it should politely decline. The exam is run with "
+             "`python -m eval.run_eval` and the results are committed to `eval/results/`. CI only displays them, "
+             "because running the exam calls the AI service.", "",
              "| Run | Model | Groundedness | Citation acc. | Exact / partial | OOS refused | Latency p50 / p95 |",
              "|---|---|---|---|---|---|---|"]
     for s in rows:
@@ -115,8 +121,62 @@ def eval_section() -> list[str]:
                      f"| {fmt(s.get('citation_accuracy_pct'))} | {fmt(s.get('exact_match_pct'))} / "
                      f"{fmt(s.get('partial_match_pct'))} | {fmt(s.get('refusal_accuracy_oos_pct'))} "
                      f"| {lat.get('p50')} / {lat.get('p95')} ms |")
-    lines.append("")
+    lines += ["", "**The two modes**", "",
+              "- **llm**: an AI model writes a short answer using only the 4 best-matching policy passages, and "
+              "cites them as [1], [2]...",
+              "- **extractive**: the backup mode used when no AI key is set. Nothing is written; the most relevant "
+              "sentences are copied straight from the policies. It is grounded by construction but less complete, and "
+              "it can't always recognise off-topic questions.", "",
+              "<details><summary><b>What each column means</b></summary>", "",
+              "| Column | Meaning |", "|---|---|",
+              "| **Run** | Which mode was tested, and on what date. |",
+              "| **Model** | What produced the answers. |",
+              "| **Groundedness** | % of answers fully supported by the retrieved policy text, with nothing made up "
+              "(judged by a *different* AI model in llm mode, or by a strict word/number check in extractive mode). |",
+              "| **Citation acc.** | % of answers whose numbered sources all come from the right policy **and** contain "
+              "the facts stated, so the link really proves the answer. |",
+              "| **Exact / partial** | % of answers containing **all** / **at least one** of the key facts from the "
+              "prepared answer. |",
+              "| **OOS refused** | % of the out-of-scope (off-topic) questions correctly declined instead of answered. |",
+              "| **Latency p50 / p95** | Time from question to answer. Half of answers were faster than p50, and 95% "
+              "were faster than p95. |", "", "</details>", ""]
+    lines += _misses(rows)
     return lines
+
+
+def _misses(rows: list[dict]) -> list[str]:
+    """Per run: the questions that did not get full marks, and why (read from per_question.jsonl)."""
+    out = ["**Where points were lost**", ""]
+    for s in rows:
+        path = ROOT / "eval" / "results" / s["run"] / "per_question.jsonl"
+        try:
+            qs = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+        except OSError:
+            continue
+        issues = []
+        for q in qs:
+            if q.get("expect_refusal"):
+                if not q.get("refused"):
+                    issues.append(f"{q['id']} *{q['question']}*: off-topic but answered instead of declined")
+                continue
+            if q.get("refused"):
+                issues.append(f"{q['id']} *{q['question']}*: declined although the policies answer it")
+                continue
+            why = []
+            if not q.get("exact_match"):
+                why.append("missed a key fact" if q.get("partial_match") else "missed the key facts")
+            if not q.get("citation_correct"):
+                why.append("a source did not contain the fact")
+            if not q.get("grounded"):
+                note = (q.get("grounded_note") or "").strip()
+                why.append("judged not fully supported" + (f" ({note[:160]})" if note else ""))
+            if why:
+                issues.append(f"{q['id']} *{q['question']}*: {'; '.join(why)}")
+        out.append(f"- **{s['run']}**: " + ("full marks on every question." if not issues else
+                                            f"{len(issues)} question(s) below full marks:"))
+        out += [f"  - {i}" for i in issues]
+    out.append("")
+    return out
 
 
 def main() -> int:
@@ -126,6 +186,12 @@ def main() -> int:
     sha = os.getenv("GITHUB_SHA", "")[:7]
     header = ["# PolicyBot CI report", "",
               f"{verdict} · commit `{sha or 'local'}` · Python {sys.version.split()[0]}", ""]
+    if (ROOT / "PolicyBot-Project-Report.pdf").exists():
+        repo, server = os.getenv("GITHUB_REPOSITORY"), os.getenv("GITHUB_SERVER_URL", "https://github.com")
+        link = (f"{server}/{repo}/blob/{os.getenv('GITHUB_SHA')}/PolicyBot-Project-Report.pdf" if repo
+                else "PolicyBot-Project-Report.pdf")
+        header += [f"📄 **[Plain-English project report (PDF)]({link})**: a step-by-step account of the project for "
+                   "non-technical readers (also included in the `ci-report` artifact below).", ""]
     md = "\n".join(header + test_lines + smoke_lines + corpus_section() + eval_section())
     REPORTS.mkdir(exist_ok=True)
     (REPORTS / "ci-report.md").write_text(md, encoding="utf-8")

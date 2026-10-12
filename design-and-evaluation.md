@@ -122,13 +122,26 @@ Metrics, computed by `python -m eval.run_eval`:
 
 | Metric | LLM mode (Groq gpt-oss-120b) | Extractive mode (no LLM) |
 |---|---|---|
-| Groundedness | _pending: run with GROQ_API_KEY_ | 100.0% (lexical check) |
-| Citation accuracy | _pending_ | 100.0% |
-| Citation precision | _pending_ | 100.0% |
-| Exact / partial match | _pending_ | 88.9% / 96.3% |
-| In-scope answer rate | _pending_ | 100.0% (27/27) |
-| Out-of-scope refusal | _pending_ | 66.7% (2/3) |
-| Latency p50 / p95 | _pending_ | 664 ms / 783 ms |
+| Groundedness | **92.6%** (25/27, LLM judge) | 100.0% (lexical check) |
+| Citation accuracy | **100.0%** | 100.0% |
+| Citation precision | 100.0% | 100.0% |
+| Exact / partial match | **100.0% / 100.0%** | 88.9% / 96.3% |
+| In-scope answer rate | 100.0% (27/27) | 100.0% (27/27) |
+| Out-of-scope refusal | **100.0% (3/3)** | 66.7% (2/3) |
+| Latency p50 / p95 | **1.24 s / 1.73 s** | 664 ms / 783 ms |
+
+All **targets in §1 are met** in LLM mode (generator `openai/gpt-oss-120b`, reasoning effort low, T=0; judge `qwen/qwen3.8-27b`; run of 2026-10-12, `eval/results/llm/`).
+
+What the LLM results show:
+- **Every in-scope question was answered correctly, with valid citations.** All 27 answers contain every gold key fact, and every cited passage both comes from a gold document and contains the facts.
+- **All 3 out-of-scope questions were refused,** including "What is Lumora's current stock price?". That question passes the retrieval gate, and the LLM's refusal rule catches it, as designed (§3, guardrail 3).
+- **The two groundedness misses (Q15, Q26) are the same failure mode.** The core answer is correct and cited, but the model added a final inference sentence that the context does not state:
+  - Q15 linked the VP-approval rule for business class "specifically to international travel".
+  - Q26 claimed emailing HR "does not allow anonymity".
+
+  The judge correctly flagged both. A next step would be a prompt rule forbidding conclusions that are not stated in the sources, or a sentence-level groundedness filter.
+- **A formatting fix raised exact match from 92.6% to 100% between runs.** The first LLM run lost two exact matches to output formatting: Markdown `**not**`, and "4 %" written with a narrow space before the sign. That formatting would also have displayed badly in the plain-text UI. Adding a plain-text rule to the prompt and normalising the output fixed both, with no change to retrieval.
+- **Latency:** p50 is 1.24 s and p95 is 1.73 s. That is about 0.6 s of local retrieval and re-ranking plus about 0.6–1.1 s of Groq generation. The evaluation paced requests to respect the free tier's 8k tokens per minute, and the pauses are excluded from the latency figures.
 
 What the extractive results show:
 - Retrieval, citation mapping and snippet selection work: every cited passage contains the gold facts.

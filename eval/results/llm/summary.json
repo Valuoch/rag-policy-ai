@@ -1,0 +1,35 @@
+{
+  "run": "llm",
+  "timestamp": "2026-10-12 12:49:58",
+  "mode": "llm",
+  "model": "openai/gpt-oss-120b",
+  "judge": "llm-judge (qwen/qwen3.8-27b)",
+  "settings": {
+    "reasoning_effort": "low",
+    "top_k": 4,
+    "rerank": true,
+    "chunk_size": 220,
+    "chunk_overlap": 40,
+    "embedding_model": "BAAI/bge-small-en-v1.5",
+    "temperature": 0.0,
+    "max_answer_tokens": 350
+  },
+  "n_questions": 30,
+  "n_in_scope": 27,
+  "n_answered": 27,
+  "n_out_of_scope": 3,
+  "groundedness_pct": 92.6,
+  "citation_accuracy_pct": 100.0,
+  "citation_precision_pct": 100.0,
+  "exact_match_pct": 100.0,
+  "partial_match_pct": 100.0,
+  "answer_rate_in_scope_pct": 100.0,
+  "refusal_accuracy_oos_pct": 100.0,
+  "latency_ms": {
+    "p50": 1244.5,
+    "p95": 1731.7,
+    "mean": 1228.6,
+    "max": 2124.9,
+    "n": 30
+  }
+}

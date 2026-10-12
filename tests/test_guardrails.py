@@ -35,3 +35,10 @@ def test_normalize_model_citation_brackets():
 
     out = normalize_output("Use them by March 31 【1】【2†L5】, carried‑over days.")
     assert out == "Use them by March 31 [1][2], carried-over days."
+
+
+def test_normalize_strips_markdown_bold_and_percent_spacing():
+    from rag.llm import normalize_output
+
+    out = normalize_output("PTO is **not** deducted; match is 100 % of 4 % [1].")
+    assert out == "PTO is not deducted; match is 100% of 4% [1]."
